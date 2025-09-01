@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section">
+  <div class="container">
+    <h1 class="title is-3">{{ t('nav_gallery') }}</h1>
+    <div class="columns is-multiline">
+      {% for img in images %}
+      <div class="column is-one-third">
+        <a href="{{ img }}" class="lightbox" data-lightbox="gallery">
+          <img src="{{ img }}" alt="foto" style="width:100%;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.08)">
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

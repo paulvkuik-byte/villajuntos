@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section"><div class="container">
+  <div class="columns is-centered"><div class="column is-half">
+    <div class="box">
+      <h1 class="title is-4">Inloggen</h1>
+      <form method="post">
+        <div class="field"><label class="label">E‑mail</label><input class="input" type="email" name="email" required></div>
+        <div class="field"><label class="label">Wachtwoord</label><input class="input" type="password" name="password" required></div>
+        <button class="button is-primary" type="submit">Inloggen</button>
+      </form>
+      <p class="is-size-7 mt-2">Nog geen account? <a href="{{ url_for('register') }}">Registreren</a></p>
+    </div>
+  </div></div>
+</div></section>
+{% endblock %}

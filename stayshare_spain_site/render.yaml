@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: casa-mar-y-sol
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn -w 2 -k gthread --threads 8 -b 0.0.0.0:$PORT app:app
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        value: sqlite:///app.db
+      - key: MAX_NIGHTS_PER_MONTH
+        value: "14"
+      - key: ADVANCE_BOOKING_MONTHS
+        value: "12"
+      - key: TIMEZONE
+        value: "Europe/Madrid"

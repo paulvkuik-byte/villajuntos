@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section"><div class="container">
+  <div class="columns is-centered"><div class="column is-half">
+    <div class="box">
+      <h1 class="title is-4">Registreren</h1>
+      <form method="post">
+        <div class="field"><label class="label">Naam</label><input class="input" type="text" name="name" required></div>
+        <div class="field"><label class="label">E‑mail</label><input class="input" type="email" name="email" required></div>
+        <div class="field"><label class="label">Wachtwoord</label><input class="input" type="password" name="password" required></div>
+        <div class="field"><label class="label">Kleur in kalender</label><input class="input" type="color" name="color" value="#FF385C"></div>
+        <button class="button is-primary" type="submit">Account aanmaken</button>
+      </form>
+    </div>
+  </div></div>
+</div></section>
+{% endblock %}
