@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ t('brand') }} – {{ t('tagline') }}</title>
     <meta name="description" content="{{ t('hero_sub') }}">
-    <meta property="og:title" content="{{ t('brand') }} – {{ t('tagline') }}">
-    <meta property="og:description" content="{{ t('hero_sub') }}">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="{{ url_for('static', filename='img/og_placeholder.jpg') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/theme_airbnb.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/brand.css') }}">
@@ -16,21 +12,6 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
     <script defer src="{{ url_for('static', filename='js/lightbox.js') }}"></script>
     <script defer src="{{ url_for('static', filename='js/site.js') }}"></script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LodgingBusiness",
-      "name": "Casa Mar y Sol",
-      "address": { "@type": "PostalAddress", "addressCountry": "ES" },
-      "amenityFeature": [
-        {"@type":"LocationFeatureSpecification","name":"Wi‑Fi","value":true},
-        {"@type":"LocationFeatureSpecification","name":"Airconditioning","value":true},
-        {"@type":"LocationFeatureSpecification","name":"Privé-parking","value":true}
-      ],
-      "url": "{{ request.url_root }}",
-      "image": ["{{ url_for('static', filename='img/photo_1.svg') }}"]
-    }
-    </script>
   </head>
   <body>
     <nav class="navbar" role="navigation">
@@ -75,7 +56,7 @@
 
     <footer class="section">
       <div class="container has-text-centered">
-        <p class="is-size-7">{{ t('foot_small') }}</p>
+        <p class="is-size-7">© Casa Mar y Sol – All rights reserved</p>
       </div>
     </footer>
   </body>

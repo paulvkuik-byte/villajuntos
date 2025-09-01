@@ -10,29 +10,30 @@
       <div class="column">
         <div class="box">
           {% if current_user.is_authenticated %}
-          <form method="post" action="{{ url_for('book') }}" id="bookingForm">
-            <div class="field">
-              <label class="label">Startdatum</label>
-              <input class="input" type="date" name="start_date" id="start_date" required>
-            </div>
-            <div class="field">
-              <label class="label">Einddatum</label>
-              <input class="input" type="date" name="end_date" id="end_date" required>
-            </div>
-            <div class="field">
-              <label class="label">Opmerking (optioneel)</label>
-              <textarea class="textarea" name="note"></textarea>
-            </div>
+          <h2 class="title is-5">Aanvraag (ingelogd)</h2>
+          <form method="post" action="{{ url_for('guest_book') }}" id="bookingFormUser">
+            <div class="field"><label class="label">Naam</label><input class="input" type="text" name="name" value="{{ current_user.name }}" required></div>
+            <div class="field"><label class="label">E‑mail</label><input class="input" type="email" name="email" value="{{ current_user.email }}" required></div>
+            <div class="field"><label class="label">Startdatum</label><input class="input" type="date" name="start_date" id="start_date_u" required></div>
+            <div class="field"><label class="label">Einddatum</label><input class="input" type="date" name="end_date" id="end_date_u" required></div>
+            <div class="field"><label class="label">Opmerking (optioneel)</label><textarea class="textarea" name="note"></textarea></div>
             <p class="is-size-7 mb-2">Regels: max <strong>{{ config.MAX_NIGHTS_PER_MONTH }}</strong> nachten p/m; max <strong>{{ config.ADVANCE_BOOKING_MONTHS }}</strong> maanden vooruit.</p>
             <button class="button is-primary" type="submit">Aanvraag indienen</button>
           </form>
-          {% else %}
-          <p>Log in of registreer om te reserveren.</p>
-          <div class="buttons mt-3">
-            <a class="button is-light" href="{{ url_for('login') }}">Inloggen</a>
-            <a class="button is-primary" href="{{ url_for('register') }}">Registreren</a>
-          </div>
+          <hr>
           {% endif %}
+
+          <h2 class="title is-5">Aanvraag zonder account</h2>
+          <form method="post" action="{{ url_for('guest_book') }}" id="bookingFormGuest">
+            <div class="field"><label class="label">Naam</label><input class="input" type="text" name="name" required></div>
+            <div class="field"><label class="label">E‑mail</label><input class="input" type="email" name="email" required></div>
+            <div class="field"><label class="label">Telefoon (optioneel)</label><input class="input" type="tel" name="phone" placeholder="+31 ..."></div>
+            <div class="field"><label class="label">Startdatum</label><input class="input" type="date" name="start_date" id="start_date_g" required></div>
+            <div class="field"><label class="label">Einddatum</label><input class="input" type="date" name="end_date" id="end_date_g" required></div>
+            <div class="field"><label class="label">Opmerking (optioneel)</label><textarea class="textarea" name="note" placeholder="Bijv. aantal personen, wensen..."></textarea></div>
+            <p class="is-size-7 mb-2">Je ontvangt per e‑mail bericht zodra we je aanvraag hebben beoordeeld.</p>
+            <button class="button is-primary" type="submit">Aanvraag versturen</button>
+          </form>
         </div>
       </div>
     </div>
@@ -50,13 +51,15 @@ document.addEventListener('DOMContentLoaded', function() {
     select: function(info) {
       var end = new Date(info.end);
       end.setDate(end.getDate() - 1);
-      var s = document.getElementById('start_date');
-      var e = document.getElementById('end_date');
-      if (s && e){
-        s.value = info.startStr;
-        e.value = end.toISOString().slice(0,10);
-        document.getElementById('bookingForm').scrollIntoView({behavior:'smooth'});
-      }
+      var startStr = info.startStr;
+      var endStr = end.toISOString().slice(0,10);
+      var sU = document.getElementById('start_date_u');
+      var eU = document.getElementById('end_date_u');
+      var sG = document.getElementById('start_date_g');
+      var eG = document.getElementById('end_date_g');
+      if (sU && eU){ sU.value = startStr; eU.value = endStr; }
+      if (sG && eG){ sG.value = startStr; eG.value = endStr; }
+      (document.getElementById('bookingFormGuest') || document.getElementById('bookingFormUser')).scrollIntoView({behavior:'smooth'});
     }
   });
   calendar.render();

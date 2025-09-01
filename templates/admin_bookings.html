@@ -1,59 +1,53 @@
 {% extends "base.html" %}
 {% block content %}
-<section class="section">
-  <div class="container">
-    <h1 class="title is-3">Admin – Reserveringen</h1>
-    <h2 class="title is-5">In afwachting</h2>
-    {% if pending %}
-    <table class="table is-fullwidth is-striped">
-      <thead><tr><th>Gebruiker</th><th>Periode</th><th>Nachten</th><th>Opmerking</th><th>Acties</th></tr></thead>
-      <tbody>
-      {% for b in pending %}
-        {% set nights = (b.end_date - b.start_date).days + 1 %}
-        <tr>
-          <td>{{ b.user.name }} ({{ b.user.email }})</td>
-          <td>{{ b.start_date }} t/m {{ b.end_date }}</td>
-          <td>{{ nights }}</td>
-          <td>{{ b.note }}</td>
-          <td>
-            <form method="post" action="{{ url_for('approve_booking', bid=b.id) }}" style="display:inline">
-              <button class="button is-small is-success">Goedkeuren</button>
-            </form>
-            <form method="post" action="{{ url_for('decline_booking', bid=b.id) }}" style="display:inline" onsubmit="return confirm('Afwijzen?');">
-              <button class="button is-small is-light is-danger">Afwijzen</button>
-            </form>
-          </td>
-        </tr>
-      {% endfor %}
-      </tbody>
-    </table>
-    {% else %}<p>Geen aanvragen in afwachting.</p>{% endif %}
+<section class="section"><div class="container">
+  <h1 class="title is-3">Admin – Reserveringen</h1>
+  <h2 class="title is-5">In afwachting</h2>
+  {% if pending %}
+  <table class="table is-fullwidth is-striped">
+    <thead><tr><th>Naam</th><th>Periode</th><th>Nachten</th><th>Opmerking</th><th>Acties</th></tr></thead>
+    <tbody>
+    {% for b in pending %}
+      {% set nights = (b.end_date - b.start_date).days + 1 %}
+      <tr>
+        <td>{{ b.user.name }} ({{ b.user.email }})</td>
+        <td>{{ b.start_date }} t/m {{ b.end_date }}</td>
+        <td>{{ nights }}</td>
+        <td>{{ b.note }}</td>
+        <td>
+          <form method="post" action="{{ url_for('approve_booking', bid=b.id) }}" style="display:inline"><button class="button is-small is-success">Goedkeuren</button></form>
+          <form method="post" action="{{ url_for('decline_booking', bid=b.id) }}" style="display:inline" onsubmit="return confirm('Afwijzen?');"><button class="button is-small is-light is-danger">Afwijzen</button></form>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}<p>Geen aanvragen in afwachting.</p>{% endif %}
 
-    <h2 class="title is-5 mt-5">Goedgekeurd</h2>
-    {% if approved %}
-    <table class="table is-fullwidth is-striped">
-      <thead><tr><th>Gebruiker</th><th>Periode</th><th>Nachten</th></tr></thead>
-      <tbody>
-      {% for b in approved %}
-        {% set nights = (b.end_date - b.start_date).days + 1 %}
-        <tr><td>{{ b.user.name }}</td><td>{{ b.start_date }} t/m {{ b.end_date }}</td><td>{{ nights }}</td></tr>
-      {% endfor %}
-      </tbody>
-    </table>
-    {% else %}<p>Geen goedgekeurde reserveringen.</p>{% endif %}
+  <h2 class="title is-5 mt-5">Goedgekeurd</h2>
+  {% if approved %}
+  <table class="table is-fullwidth is-striped">
+    <thead><tr><th>Naam</th><th>Periode</th><th>Nachten</th></tr></thead>
+    <tbody>
+    {% for b in approved %}
+      {% set nights = (b.end_date - b.start_date).days + 1 %}
+      <tr><td>{{ b.user.name }}</td><td>{{ b.start_date }} t/m {{ b.end_date }}</td><td>{{ nights }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}<p>Geen goedgekeurde reserveringen.</p>{% endif %}
 
-    <h2 class="title is-5 mt-5">Afgewezen</h2>
-    {% if declined %}
-    <table class="table is-fullwidth is-striped">
-      <thead><tr><th>Gebruiker</th><th>Periode</th><th>Nachten</th></tr></thead>
-      <tbody>
-      {% for b in declined %}
-        {% set nights = (b.end_date - b.start_date).days + 1 %}
-        <tr><td>{{ b.user.name }}</td><td>{{ b.start_date }} t/m {{ b.end_date }}</td><td>{{ nights }}</td></tr>
-      {% endfor %}
-      </tbody>
-    </table>
-    {% else %}<p>Geen afgewezen reserveringen.</p>{% endif %}
-  </div>
-</section>
+  <h2 class="title is-5 mt-5">Afgewezen</h2>
+  {% if declined %}
+  <table class="table is-fullwidth is-striped">
+    <thead><tr><th>Naam</th><th>Periode</th><th>Nachten</th></tr></thead>
+    <tbody>
+    {% for b in declined %}
+      {% set nights = (b.end_date - b.start_date).days + 1 %}
+      <tr><td>{{ b.user.name }}</td><td>{{ b.start_date }} t/m {{ b.end_date }}</td><td>{{ nights }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}<p>Geen afgewezen reserveringen.</p>{% endif %}
+</div></section>
 {% endblock %}
